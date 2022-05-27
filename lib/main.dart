@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -9,13 +9,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(),
+      home: const MyHomePage(),
       theme: _buildShrineTheme(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +31,20 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
+      body: MaterialBanner(
+        content: const Text('Error message text'),
+        leading: const CircleAvatar(child: Icon(Icons.delete)),
+        actions: [
+          TextButton(
+            child: const Text('ACTION 1'),
+            onPressed: () { },
+          ),
+          TextButton(
+            child: const Text('ACTION 2'),
+            onPressed: () { },
+          ),
+        ],
+      ),
       floatingActionButton:
       FloatingActionButton(child: const Icon(Icons.add), onPressed: () {}),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -40,8 +56,25 @@ ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
     colorScheme: _shrineColorScheme,
+    toggleableActiveColor: shrinePink400,
+    primaryColor: shrinePink100,
+    primaryColorLight: shrinePink100,
+    scaffoldBackgroundColor: shrineBackgroundWhite,
+    cardColor: shrineBackgroundWhite,
+    errorColor: shrineErrorRed,
+    buttonTheme: ButtonThemeData(
+      colorScheme: _shrineColorScheme.copyWith(primary: shrinePink400),
+      textTheme: ButtonTextTheme.normal,
+    ),
+    primaryIconTheme: _customIconTheme(base.iconTheme),
     textTheme: _buildShrineTextTheme(base.textTheme),
+    primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
+    iconTheme: _customIconTheme(base.iconTheme),
   );
+}
+
+IconThemeData _customIconTheme(IconThemeData original) {
+  return original.copyWith(color: shrineBrown900);
 }
 
 TextTheme _buildShrineTextTheme(TextTheme base) {
