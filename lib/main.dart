@@ -20,6 +20,23 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //MaterialBanner chung cho cả 3 button
+    final MaterialBanner materialBanner = MaterialBanner(
+      content: const Text('Error message text'),
+      leading: const CircleAvatar(child: Icon(Icons.delete)),
+      actions: [
+        TextButton(
+          child: const Text('ACTION 1'),
+          onPressed: () { },
+        ),
+        TextButton(
+          child: const Text('HIDE'),
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+          },
+        ),
+      ],
+    );
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -31,19 +48,30 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: MaterialBanner(
-        content: const Text('Error message text'),
-        leading: const CircleAvatar(child: Icon(Icons.delete)),
-        actions: [
-          TextButton(
-            child: const Text('ACTION 1'),
-            onPressed: () { },
-          ),
-          TextButton(
-            child: const Text('ACTION 2'),
-            onPressed: () { },
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showMaterialBanner(materialBanner);              },
+              child: const Text('TEXT BUTTON'),
+            ),
+            const SizedBox(height: 8.0),
+            OutlinedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showMaterialBanner(materialBanner);              },
+              child: const Text("OUTLINED BUTTON"),
+            ),
+            const SizedBox(height: 8.0),
+            ElevatedButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showMaterialBanner(materialBanner);
+              },
+              child: const Text("CONTAINED BUTTON"),
+            ),
+          ],
+        ),
       ),
       floatingActionButton:
       FloatingActionButton(child: const Icon(Icons.add), onPressed: () {}),
@@ -52,6 +80,8 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
+
+//BuildTheme của Material Design
 ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
@@ -77,6 +107,8 @@ IconThemeData _customIconTheme(IconThemeData original) {
   return original.copyWith(color: shrineBrown900);
 }
 
+
+//Set theme
 TextTheme _buildShrineTextTheme(TextTheme base) {
   return base
       .copyWith(
@@ -98,6 +130,8 @@ TextTheme _buildShrineTextTheme(TextTheme base) {
   );
 }
 
+
+//ColorScheme
 const ColorScheme _shrineColorScheme = ColorScheme(
   primary: shrinePink100,
   secondary: shrinePink50,
@@ -112,6 +146,8 @@ const ColorScheme _shrineColorScheme = ColorScheme(
   brightness: Brightness.light,
 );
 
+
+//Khai báo màu
 const Color shrinePink50 = Color(0xFFFEEAE6);
 const Color shrinePink100 = Color(0xFFFEDBD0);
 const Color shrinePink300 = Color(0xFFFBB8AC);
@@ -126,3 +162,4 @@ const Color shrineSurfaceWhite = Color(0xFFFFFBFA);
 const Color shrineBackgroundWhite = Colors.white;
 
 const defaultLetterSpacing = 0.03;
+
