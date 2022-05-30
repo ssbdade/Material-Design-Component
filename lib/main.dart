@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_component/checkbox.dart';
-import 'package:material_design_component/otp_textfiled.dart';
+import 'package:material_design_component/Page/card.dart';
+import 'package:material_design_component/Page/checkbox.dart';
+import 'package:material_design_component/Page/otp_textfiled.dart';
 
 void main() => runApp(const MyApp());
 
@@ -124,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 ScaffoldMessenger.of(context)
                     .showMaterialBanner(materialBanner);
@@ -132,10 +133,14 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('MATERIAL BANNER'),
             ),
             const SizedBox(height: 8.0),
-            OutlinedButton(
+            ElevatedButton(
               onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CardPage()));
               },
-              child: const Text("OUTLINE BUTTON"),
+              child: const Text("CARD"),
             ),
             const SizedBox(height: 8.0),
             ElevatedButton(
