@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_component/checkbox.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,26 +9,32 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Material Design Demo',
       home: const MyHomePage(),
       theme: _buildShrineTheme(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+  @override
   Widget build(BuildContext context) {
-    //MaterialBanner chung cho cả 3 button
+    //MaterialBanner chung cho cả 2 button trên
     final MaterialBanner materialBanner = MaterialBanner(
       content: const Text('Error message text'),
       leading: const CircleAvatar(child: Icon(Icons.delete)),
       actions: [
         TextButton(
           child: const Text('ACTION 1'),
-          onPressed: () { },
+          onPressed: () {},
         ),
         TextButton(
           child: const Text('HIDE'),
@@ -38,10 +45,22 @@ class MyHomePage extends StatelessWidget {
       ],
     );
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('APPBAR: TOP'),
+        actions: const [
+          Icon(Icons.favorite),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Icon(Icons.search),
+          ),
+          Icon(Icons.more_vert),
+        ],
+      ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
           children: [
-            IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
+            IconButton(icon: const Icon(Icons.menu), onPressed: () {
+            }),
             const Spacer(),
             IconButton(icon: const Icon(Icons.search), onPressed: () {}),
             IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
@@ -54,32 +73,38 @@ class MyHomePage extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showMaterialBanner(materialBanner);              },
+                ScaffoldMessenger.of(context)
+                    .showMaterialBanner(materialBanner);
+              },
               child: const Text('TEXT BUTTON'),
             ),
             const SizedBox(height: 8.0),
             OutlinedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showMaterialBanner(materialBanner);              },
+                ScaffoldMessenger.of(context)
+                    .showMaterialBanner(materialBanner);
+              },
               child: const Text("OUTLINED BUTTON"),
             ),
             const SizedBox(height: 8.0),
             ElevatedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showMaterialBanner(materialBanner);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CheckBoxesPage()));
               },
-              child: const Text("CONTAINED BUTTON"),
+              child: const Text("CHECKBOX"),
             ),
           ],
         ),
       ),
       floatingActionButton:
-      FloatingActionButton(child: const Icon(Icons.add), onPressed: () {}),
+          FloatingActionButton(child: const Icon(Icons.add), onPressed: () {}),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
-
 
 //BuildTheme của Material Design
 ThemeData _buildShrineTheme() {
@@ -107,29 +132,27 @@ IconThemeData _customIconTheme(IconThemeData original) {
   return original.copyWith(color: shrineBrown900);
 }
 
-
 //Set theme
 TextTheme _buildShrineTextTheme(TextTheme base) {
   return base
       .copyWith(
-    caption: base.caption?.copyWith(
-      fontWeight: FontWeight.w400,
-      fontSize: 14,
-      letterSpacing: defaultLetterSpacing,
-    ),
-    button: base.button?.copyWith(
-      fontWeight: FontWeight.w500,
-      fontSize: 14,
-      letterSpacing: defaultLetterSpacing,
-    ),
-  )
+        caption: base.caption?.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 14,
+          letterSpacing: defaultLetterSpacing,
+        ),
+        button: base.button?.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: 14,
+          letterSpacing: defaultLetterSpacing,
+        ),
+      )
       .apply(
-    fontFamily: 'Rubik',
-    displayColor: shrineBrown900,
-    bodyColor: shrineBrown900,
-  );
+        fontFamily: 'Rubik',
+        displayColor: shrineBrown900,
+        bodyColor: shrineBrown900,
+      );
 }
-
 
 //ColorScheme
 const ColorScheme _shrineColorScheme = ColorScheme(
@@ -146,7 +169,6 @@ const ColorScheme _shrineColorScheme = ColorScheme(
   brightness: Brightness.light,
 );
 
-
 //Khai báo màu
 const Color shrinePink50 = Color(0xFFFEEAE6);
 const Color shrinePink100 = Color(0xFFFEDBD0);
@@ -162,4 +184,3 @@ const Color shrineSurfaceWhite = Color(0xFFFFFBFA);
 const Color shrineBackgroundWhite = Colors.white;
 
 const defaultLetterSpacing = 0.03;
-

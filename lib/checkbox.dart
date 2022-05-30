@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Page2 extends StatefulWidget {
-  const Page2({Key? key}) : super(key: key);
+class CheckBoxesPage extends StatefulWidget {
+  const CheckBoxesPage({Key? key}) : super(key: key);
 
   @override
-  State<Page2> createState() => _Page2State();
+  State<CheckBoxesPage> createState() => _CheckBoxesPageState();
 }
 
-class _Page2State extends State<Page2> {
+class _CheckBoxesPageState extends State<CheckBoxesPage> {
   List<bool> checked = [true, true, false, false, true];
   @override
   Widget build(BuildContext context) {
