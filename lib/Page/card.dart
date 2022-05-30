@@ -58,7 +58,7 @@ class _CardPageState extends State<CardPage> {
             child: Column(
               children: [
                 ListTile(
-                  leading: Icon(Icons.arrow_drop_down_circle),
+                  leading: const Icon(Icons.arrow_drop_down_circle),
                   title: const Text('Card title 1'),
                   subtitle: Text(
                     'Secondary Text',
@@ -75,13 +75,13 @@ class _CardPageState extends State<CardPage> {
                 ButtonBar(
                   alignment: MainAxisAlignment.start,
                   children: [
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         // Perform some action
                       },
                       child: const Text('ACTION 1'),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         // Perform some action
                       },
