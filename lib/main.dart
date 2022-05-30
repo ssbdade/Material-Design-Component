@@ -53,13 +53,34 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('APPBAR: TOP'),
-        actions: const [
-          Icon(Icons.favorite),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(Icons.search),
+        actions: [
+          //Menus
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+              const PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.add),
+                  title: Text('Item 1'),
+                ),
+              ),
+              const PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.anchor),
+                  title: Text('Item 2'),
+                ),
+              ),
+              const PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.article),
+                  title: Text('Item 3'),
+                ),
+              ),
+              const PopupMenuDivider(),
+              const PopupMenuItem(child: Text('Item A')),
+              const PopupMenuItem(child: Text('Item B')),
+            ],
           ),
-          Icon(Icons.more_vert),
         ],
       ),
       drawer: Drawer(
