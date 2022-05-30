@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_component/checkbox.dart';
+import 'package:material_design_component/otp_textfiled.dart';
 
 void main() => runApp(const MyApp());
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//Main Page gồm Appbar top, bottom; drawer; Material Banner
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -127,15 +129,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ScaffoldMessenger.of(context)
                     .showMaterialBanner(materialBanner);
               },
-              child: const Text('TEXT BUTTON'),
+              child: const Text('MATERIAL BANNER'),
             ),
             const SizedBox(height: 8.0),
             OutlinedButton(
               onPressed: () {
-                ScaffoldMessenger.of(context)
-                    .showMaterialBanner(materialBanner);
               },
-              child: const Text("OUTLINED BUTTON"),
+              child: const Text("OUTLINE BUTTON"),
             ),
             const SizedBox(height: 8.0),
             ElevatedButton(
@@ -151,7 +151,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton:
-          FloatingActionButton(child: const Icon(Icons.add), onPressed: () {}),
+          FloatingActionButton.extended(icon: const Icon(Icons.add), label: const Text('OTP TEXTFIELD'), onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const OTPPage()));
+          }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
