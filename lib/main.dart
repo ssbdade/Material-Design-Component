@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_component/Page/card.dart';
 import 'package:material_design_component/Page/checkbox.dart';
+import 'package:material_design_component/Page/chip.dart';
 import 'package:material_design_component/Page/otp_textfiled.dart';
 
 void main() => runApp(const MyApp());
@@ -151,6 +152,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         builder: (context) => const CheckBoxesPage()));
               },
               child: const Text("CHECKBOX"),
+            ),
+            const SizedBox(height: 8.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ChipPage()));
+              },
+              child: const Text("CHIPS"),
             ),
           ],
         ),
