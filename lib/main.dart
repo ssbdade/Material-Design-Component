@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_component/Page/bottom_navigator.dart';
 import 'package:material_design_component/Page/card.dart';
 import 'package:material_design_component/Page/checkbox.dart';
 import 'package:material_design_component/Page/chip.dart';
 import 'package:material_design_component/Page/date_picker.dart';
 import 'package:material_design_component/Page/dialog.dart';
 import 'package:material_design_component/Page/otp_textfiled.dart';
+import 'package:material_design_component/custom_theme.dart';
 
 void main() => runApp(const MyApp());
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material Design Demo',
       home: const MyHomePage(),
-      theme: _buildShrineTheme(),
+      theme: CustomTheme().buildDarkTheme(),
     );
   }
 }
@@ -31,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedDestination = 0;
+  List<bool> checked = [true, true, false, false, true];
   @override
   Widget build(BuildContext context) {
     //MaterialBanner chung cho cả 2 button trên
@@ -56,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           //Menus
           PopupMenuButton(
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             itemBuilder: (BuildContext context) => <PopupMenuEntry>[
               const PopupMenuItem(
                 child: ListTile(
@@ -117,9 +120,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           ListTile(
             leading: const Icon(Icons.label),
-            title: const Text('Item 3'),
+            title: const Text('Bottom Navigator Bar'),
             selected: _selectedDestination == 2,
-            onTap: () => selectDestination(2),
+              onTap: () {
+                selectDestination(2);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const BottomNavigatorPage()));
+              }
           ),
           const Divider(
             height: 1,
@@ -174,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const CheckBoxesPage()));
+                        builder: (context) => CheckBoxesPage(checked)));
               },
               child: const Text("CHECKBOX"),
             ),
@@ -215,81 +222,3 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-//BuildTheme của Material Design
-ThemeData _buildShrineTheme() {
-  final ThemeData base = ThemeData.light();
-  return base.copyWith(
-    colorScheme: _shrineColorScheme,
-    toggleableActiveColor: shrinePink400,
-    primaryColor: shrinePink100,
-    primaryColorLight: shrinePink100,
-    scaffoldBackgroundColor: shrineBackgroundWhite,
-    cardColor: shrineBackgroundWhite,
-    errorColor: shrineErrorRed,
-    buttonTheme: ButtonThemeData(
-      colorScheme: _shrineColorScheme.copyWith(primary: shrinePink400),
-      textTheme: ButtonTextTheme.normal,
-    ),
-    primaryIconTheme: _customIconTheme(base.iconTheme),
-    textTheme: _buildShrineTextTheme(base.textTheme),
-    primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
-    iconTheme: _customIconTheme(base.iconTheme),
-  );
-}
-
-IconThemeData _customIconTheme(IconThemeData original) {
-  return original.copyWith(color: shrineBrown900);
-}
-
-//Set theme
-TextTheme _buildShrineTextTheme(TextTheme base) {
-  return base
-      .copyWith(
-        caption: base.caption?.copyWith(
-          fontWeight: FontWeight.w400,
-          fontSize: 14,
-          letterSpacing: defaultLetterSpacing,
-        ),
-        button: base.button?.copyWith(
-          fontWeight: FontWeight.w500,
-          fontSize: 14,
-          letterSpacing: defaultLetterSpacing,
-        ),
-      )
-      .apply(
-        fontFamily: 'Rubik',
-        displayColor: shrineBrown900,
-        bodyColor: shrineBrown900,
-      );
-}
-
-//ColorScheme
-const ColorScheme _shrineColorScheme = ColorScheme(
-  primary: shrinePink100,
-  secondary: shrinePink50,
-  surface: shrineSurfaceWhite,
-  background: shrineBackgroundWhite,
-  error: shrineErrorRed,
-  onPrimary: shrineBrown900,
-  onSecondary: shrineBrown900,
-  onSurface: shrineBrown900,
-  onBackground: shrineBrown900,
-  onError: shrineSurfaceWhite,
-  brightness: Brightness.light,
-);
-
-//Khai báo màu
-const Color shrinePink50 = Color(0xFFFEEAE6);
-const Color shrinePink100 = Color(0xFFFEDBD0);
-const Color shrinePink300 = Color(0xFFFBB8AC);
-const Color shrinePink400 = Color(0xFFEAA4A4);
-
-const Color shrineBrown900 = Color(0xFF442B2D);
-const Color shrineBrown600 = Color(0xFF7D4F52);
-
-const Color shrineErrorRed = Color(0xFFC5032B);
-
-const Color shrineSurfaceWhite = Color(0xFFFFFBFA);
-const Color shrineBackgroundWhite = Colors.white;
-
-const defaultLetterSpacing = 0.03;

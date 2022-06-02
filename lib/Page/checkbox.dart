@@ -1,45 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_component/resource/widgets/check_box_widget.dart';
 
 class CheckBoxesPage extends StatefulWidget {
-  const CheckBoxesPage({Key? key}) : super(key: key);
+  const CheckBoxesPage(this.checked, {Key? key}) : super(key: key);
+  final List<bool> checked;
+
 
   @override
   State<CheckBoxesPage> createState() => _CheckBoxesPageState();
 }
 
 class _CheckBoxesPageState extends State<CheckBoxesPage> {
-  List<bool> checked = [true, true, false, false, true];
+  bool checkAll = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Checkboxes Demo'),
       ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(vertical: 40),
-        child: Column(
-          children: [
-            for (var i = 0; i < 5; i += 1)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    onChanged: (bool? value) {
-                            setState(() {
-                              checked[i] = value!;
-                            });
-                          },
-                    value: checked[i],
-                  ),
-                  Text(
-                    'Checkbox ${i + 1}',
-                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                        color: Colors.black),
-                  ),
-                ],
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Checkbox(
+                onChanged: (bool? value) {
+                  setState(() {
+                    if (value != null) {
+                      checkAll = value;
+                      for(int i = 0; i < 5; i++) {
+                        widget.checked[i] = checkAll;
+                      }
+                    }
+                  });
+                },
+                value: checkAll,
               ),
-          ],
-        ),
+              Text(
+                'Check all',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!,
+              ),
+            ],
+          ),
+          for(int i = 0; i < 5; i++)
+            CheckedBox(check:widget.checked[i], i: i,onchange:  (value){
+              widget.checked[i] = value;
+              int count = 0;
+              for(int i = 0; i < 5; i++) {
+                if (widget.checked[i] == true) {
+                  count++;
+                }
+              }
+              if(count == 5) {
+                setState(() {
+                  checkAll = true;
+                });
+              }
+              else {
+                setState(() {
+                  checkAll = false;
+                });
+              }
+            })
+        ],
       ),
     );
   }
